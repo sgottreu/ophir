@@ -136,13 +136,21 @@
 
 #tile1.side1 {
   border-right: 2px #fff solid; }
-#tile1.side2 {
+#tile1.side2, #tile1.side3 {
   border-bottom: 2px #fff solid; }
 
 #tile2.side1 {
   border-left: 2px #fff solid; }
+#tile2.side4, #tile2.side5 {
+  border-bottom: 2px #fff solid; }
 
 #tile3.side2 {
+  border-top: 2px #fff solid; }
+
+#tile4.side3, #tile4.side4 {
+  border-top: 2px #fff solid; }
+
+#tile5.side5 {
   border-top: 2px #fff solid; }
 
 #tile6.side12 {
