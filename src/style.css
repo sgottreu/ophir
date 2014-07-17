@@ -1,0 +1,152 @@
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.container {
+  width: 606px;
+  height: 606px;
+  padding: 0px;
+  margin: 0px; }
+
+.tile {
+  float: left;
+  padding: 0px;
+  margin: 0px; }
+  .tile.half {
+    width: 100px;
+    height: 200px; }
+  .tile.full {
+    width: 200px;
+    height: 200px;
+    border: 1px #000 solid;
+    background-color: #00FF96;
+    background-image: url(../images/ocean.jpg);
+    background-repeat: no-repeat;
+    -webkit-background-size: 200px;
+    /* Safari 3.0 */
+    -moz-background-size: 200px;
+    /* Gecko 1.9.2 (Firefox 3.6) */
+    -o-background-size: 200px;
+    /* Opera 9.5 */
+    background-size: 200px; }
+    .tile.full.tile1 {
+      background-color: #00FF96;
+      background-image: url(../images/tile1.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full.tile2 {
+      background-color: #00FF96;
+      background-image: url(../images/tile2.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full.tile3 {
+      background-color: #00FF96;
+      background-image: url(../images/tile3.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full.tile4 {
+      background-color: #00FF96;
+      background-image: url(../images/tile4.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full.tile5 {
+      background-color: #00FF96;
+      background-image: url(../images/tile5.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full.tile6 {
+      background-color: #00FF96;
+      background-image: url(../images/tile6.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full.tile7 {
+      background-color: #00FF96;
+      background-image: url(../images/tile7.jpg);
+      background-repeat: no-repeat;
+      background-size: 200px; }
+    .tile.full .ship_layer {
+      display: none;
+      width: 200px;
+      min-height: 200px;
+      border: 0px;
+      z-index: 100;
+      margin: 0 auto;
+      top: 50%;
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%);
+      position: relative; }
+      .tile.full .ship_layer .blue {
+        background: #b9b2ff; }
+      .tile.full .ship_layer .red {
+        background: #ff6666; }
+      .tile.full .ship_layer .yellow {
+        background: #f0ff47; }
+      .tile.full .ship_layer .white {
+        background: #eeeeee; }
+  .tile .label {
+    margin: 0 auto;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border: 2px #000 solid;
+    padding: 30px 0px;
+    -moz-border-radius: 52px;
+    -webkit-border-radius: 52px;
+    border-radius: 52px;
+    font-size: 20px;
+    text-align: center; }
+    .tile .label.wood {
+      background: #fff0b6; }
+    .tile .label.gems {
+      background: #ad0000;
+      color: #fff; }
+    .tile .label.stone {
+      background: #cfcfcf; }
+    .tile .label.cloth {
+      background: #610ba1;
+      color: #fff; }
+    .tile .label.metals {
+      background: #878787; }
+    .tile .label.temple {
+      background: #bac6ff; }
+    .tile .label.market {
+      background: darkorange; }
+
+.available {
+  background: #ccc;
+  filter: alpha(opacity=50);
+  -khtml-opacity: .5;
+  -moz-opacity: .5;
+  opacity: .5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; }
+
+.current {
+  background: #00FF96 !important;
+  filter: alpha(opacity=90);
+  -khtml-opacity: .9;
+  -moz-opacity: .9;
+  opacity: .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)"; }
+
+.no-barrier {
+  border: 2px #000 solid; }
+
+#tile1.side1 {
+  border-right: 2px #fff solid; }
+#tile1.side2 {
+  border-bottom: 2px #fff solid; }
+
+#tile2.side1 {
+  border-left: 2px #fff solid; }
+
+#tile3.side2 {
+  border-top: 2px #fff solid; }
+
+#tile6.side12 {
+  border-right: 2px #fff solid; }
+
+#tile7.side12 {
+  border-left: 2px #fff solid; }

@@ -1,0 +1,196 @@
+$shipYellow: #F0FF47;
+$shipBlue: #B9B2FF;
+$shipRed: #FF6666;
+$shipWhite: #eee;
+
+$wood: #FFF0B6;
+$gems: #AD0000;
+$cloth: #610BA1;
+$stone: #CFCFCF;
+$metals: #878787;
+$market: #FF8C00;
+$temple: #BAC6FF;
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// @mixin bkgd-rotate($deg) {
+//   -moz-transform: rotate($deg) ;
+//   -webkit-transform: rotate($deg) ;
+//           transform: rotate($deg) ;
+// }
+
+// @mixin bkgd-rotate-y($deg) {
+//   $percentY: -50%;
+//   $percentX: 50%;
+//   @if $deg == -180deg {
+//     $percentY: 50%;
+//     $percentX: 0%;
+//   } @else if $deg == -90deg {
+//     $percentY: 0%;
+//     $percentX: 50%;
+//   } @else {
+//     $percentY: 0%;
+//     $percentX: -50%;
+//   }
+
+//   -moz-transform: rotate($deg) translateY($percentY) translateX($percentX);  /* FF3.5+ */
+//   -webkit-transform: rotate($deg) translateY($percentY) translateX($percentX);  /* IE9 */
+//           transform: rotate($deg) translateY($percentY) translateX($percentX);  
+// }
+
+.container {
+  width: 606px;
+  height: 606px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.tile {
+  float:left;
+  padding: 0px;
+  margin: 0px;
+
+
+  &.half {
+    width: 100px;
+    height: 200px;
+  }
+
+  &.full {
+    width: 200px;
+    height: 200px;
+    border:1px #000 solid;
+    background-color: #00FF96;
+    background-image: url(../images/ocean.jpg);
+    background-repeat: no-repeat;
+    -webkit-background-size: 200px;           /* Safari 3.0 */
+     -moz-background-size: 200px;           /* Gecko 1.9.2 (Firefox 3.6) */
+       -o-background-size: 200px;           /* Opera 9.5 */
+          background-size: 200px;
+
+    @for $i from 1 through 7 {
+      &.tile#{$i} { 
+        background-color: #00FF96;
+        background-image: url(../images/tile#{$i}.jpg);
+        background-repeat: no-repeat;
+        background-size: 200px;
+      }
+    }
+
+    .ship_layer {
+      display: none;
+      width: 200px;
+      min-height: 200px;
+      border: 0px;
+      z-index: 100;
+      margin: 0 auto;
+      top: 50%;
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%);
+      position: relative;
+
+      .blue {
+        background: $shipBlue;
+      }
+      .red {
+        background: $shipRed;
+      }
+      .yellow {
+        background: $shipYellow;
+      }
+      .white {
+        background: $shipWhite;
+      }
+    }
+  }
+
+  .label {
+    margin: 0 auto;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border: 2px #000 solid;
+    padding: 30px 0px;
+    -moz-border-radius: 52px; -webkit-border-radius: 52px; border-radius: 52px;
+    font-size: 20px;
+    text-align: center;
+
+    &.wood {
+      background: $wood;
+    }
+    &.gems {
+      background: $gems;
+      color: #fff;
+    }
+    &.stone {
+      background: $stone;
+    }
+    &.cloth {
+      background: $cloth;
+      color: #fff;
+    }
+    &.metals {
+      background: $metals;
+    }
+    &.temple {
+      background: $temple;
+    }
+    &.market {
+      background: $market;
+    }
+  }
+
+}
+
+
+
+.available {
+  background: #ccc;
+  filter: alpha(opacity=50);-khtml-opacity: .5;-moz-opacity: .5;opacity: .5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+
+.current {
+  background: #00FF96 !important;
+  filter: alpha(opacity=90);-khtml-opacity: .9;-moz-opacity: .9;opacity: .9;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)"; 
+}
+
+.no-barrier {
+  border: 2px #000 solid;
+}
+
+#tile1 {
+  &.side1 {
+    border-right: 2px #fff solid;
+  }
+  &.side2 {
+    border-bottom: 2px #fff solid;
+  }
+}
+#tile2 {
+  &.side1 {
+    border-left: 2px #fff solid;
+  }
+}
+
+#tile3 {
+  &.side2 {
+    border-top: 2px #fff solid;
+  }
+}
+
+#tile6 {
+  &.side12 {
+    border-right: 2px #fff solid;
+  }
+}
+#tile7 {
+  &.side12 {
+    border-left: 2px #fff solid;
+  }
+}
