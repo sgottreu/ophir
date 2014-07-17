@@ -1,4 +1,4 @@
-var Side, Tile, addBarrierStyle, adjacent, clickTile, resetHover, roles, setBarrier, showAdjacent, sides, tiles, tmpRoles;
+var Side, Tile, addBarrierStyle, adjacent, checkBarrierCount, clickTile, resetHover, roles, setBarrier, showAdjacent, sides, tiles, tmpRoles;
 
 Tile = (function() {
   function Tile(data) {
@@ -112,7 +112,7 @@ adjacent.forEach(function(adjacent, index) {
   tiles[index] = new Tile({
     id: index,
     role: tmpRoles[roleIndex - 1],
-    adjacent: adjacent
+    adjacent: adjacent.slice()
   });
   el = document.getElementById("label" + index);
   el.className = el.className + ' ' + tmpRoles[roleIndex - 1].toLowerCase();
@@ -155,29 +155,74 @@ addBarrierStyle = function(sideId, tileId) {
   return el.className = className + ' side' + sideId + ' ';
 };
 
+checkBarrierCount = function() {
+  var barriers, canContinue;
+  barriers = 0;
+  canContinue = true;
+  sides.forEach(function(value, i) {
+    var el;
+    el = document.getElementById("side" + i);
+    if (el.checked) {
+      return barriers++;
+    }
+  });
+  if (barriers > 2) {
+    alert('You have too many barriers.');
+    canContinue = false;
+  }
+  return canContinue;
+};
+
 setBarrier = function(id) {
   var el, sideAdj, tmpSides;
-  el = document.getElementById(id);
   id = id.replace("side", "", "gi");
+  sides[id].forEach(function(value, i) {
+    var el;
+    if (!checkBarrierCount()) {
+      el = document.getElementById("side" + id);
+      el.checked = false;
+      return false;
+    }
+  });
+  el = document.getElementById(id);
   sideAdj = [];
   tmpSides = [];
   sides[id].forEach(function(value, i) {
     tmpSides.push(value);
     sideAdj.push(tiles[value].adjacent.slice());
-    return addBarrierStyle(id, value);
+    addBarrierStyle(id, value);
+    return true;
   });
-  console.log(sideAdj);
-  sideAdj[1].forEach(function(tile, i) {
-    console.log('tile: ' + tile + ' i: ' + i);
-    if (tmpSides[0] === tile) {
-      return tiles[tile].adjacent.splice(i, 1);
-    }
-  });
-  sideAdj[0].forEach(function(tile, i) {
-    console.log('tile: ' + tile + ' i: ' + i);
-    if (tmpSides[1] === tile) {
-      return tiles[tile].adjacent.splice(i, 1);
-    }
-  });
+  el = document.getElementById("side" + id);
+  if (el.checked) {
+    sideAdj[1].forEach(function(tile, i) {
+      console.log('tile: ' + tile + ' i: ' + i);
+      if (tmpSides[0] === tile) {
+        tiles[tile].adjacent.splice(i, 1);
+        return true;
+      }
+    });
+    sideAdj[0].forEach(function(tile, i) {
+      console.log('tile: ' + tile + ' i: ' + i);
+      if (tmpSides[1] === tile) {
+        tiles[tile].adjacent.splice(i, 1);
+        return true;
+      }
+    });
+    return true;
+  } else {
+    sides[id].forEach(function(value, i) {
+      var className, re;
+      tiles[value].adjacent = adjacent[value].slice();
+      el = document.getElementById("tile" + value);
+      re = new RegExp("/side" + id + "/", "gi");
+      className = el.className;
+      className = className.replace("side" + id, "");
+      className = className.replace("side" + id, "");
+      el.className = className;
+      return true;
+    });
+    return true;
+  }
   return true;
 };

@@ -63,7 +63,7 @@ tmpRoles = roles.slice()
 adjacent.forEach (adjacent, index) ->
   roleIndex = Math.floor(Math.random() * (tmpRoles.length - 1)) + 1
   
-  tiles[index] = new Tile { id: index, role: tmpRoles[roleIndex-1], adjacent: adjacent }
+  tiles[index] = new Tile { id: index, role: tmpRoles[roleIndex-1], adjacent: adjacent.slice() }
   
   el = document.getElementById("label"+index)
 
@@ -94,17 +94,35 @@ clickTile = (tile) ->
   el = document.getElementById(tile.id)
   el.className += ' current'
 
-
 addBarrierStyle = (sideId, tileId) ->
   el = document.getElementById('tile'+tileId)
   className = el.className
   el.className = className+' side'+sideId+ ' '
 
-setBarrier = (id) ->
-  el = document.getElementById(id)
+checkBarrierCount = () ->
+  barriers = 0
+  canContinue = true
+  sides.forEach (value, i) ->
+    el = document.getElementById("side"+i)
+    if el.checked
+      barriers++
+  if barriers > 2
+    alert('You have too many barriers.')
+    canContinue = false
 
+    
+  return canContinue
+
+setBarrier = (id) ->
   id = id.replace("side", "", "gi")
 
+  sides[id].forEach (value, i) ->
+    if !checkBarrierCount()
+      el = document.getElementById("side"+id)
+      el.checked = false
+      return false
+
+  el = document.getElementById(id)
   sideAdj = []
   tmpSides = []
 
@@ -112,60 +130,33 @@ setBarrier = (id) ->
     tmpSides.push(value)
     sideAdj.push(tiles[value].adjacent.slice())
     addBarrierStyle(id, value)
+    return true
 
+  el = document.getElementById("side"+id)
 
-  console.log(sideAdj)
+  if el.checked
+    sideAdj[1].forEach (tile, i) ->
+      console.log('tile: '+tile+' i: '+i)
+      if tmpSides[0] == tile
+        tiles[tile].adjacent.splice(i, 1)
+        return true
 
-  sideAdj[1].forEach (tile, i) ->
-    console.log('tile: '+tile+' i: '+i)
-    if tmpSides[0] == tile
-      tiles[tile].adjacent.splice(i, 1)
-
-  sideAdj[0].forEach (tile, i) ->
-    console.log('tile: '+tile+' i: '+i)
-    if tmpSides[1] == tile
-      tiles[tile].adjacent.splice(i, 1)
+    sideAdj[0].forEach (tile, i) ->
+      console.log('tile: '+tile+' i: '+i)
+      if tmpSides[1] == tile
+        tiles[tile].adjacent.splice(i, 1)
+        return true
+    return true
+  else
+    sides[id].forEach (value, i) ->
+      tiles[value].adjacent = adjacent[value].slice()
+      el = document.getElementById("tile"+value)
+      re = new RegExp("/side"+id+"/", "gi")
+      className = el.className
+      className = className.replace("side"+id, "")
+      className = className.replace("side"+id, "")
+      el.className = className
+      return true
+    return true
 
   return true
-
-
-  # sides[id].forEach (border, index) ->
-  #   tmpId = id
-  #   sideAdj.forEach (b, i) ->
-  #     el = document.getElementById("side"+tmpId)
-  #     console.log el.checked
-  #     if el.checked
-  #       b.forEach ( side, j) ->
-  #         if side == border
-  #           tiles[i].adjacent.splice(j, 1)
-  #     else
-  #       tiles[i].adjacent = adjacent[i]
-  #       el = document.getElementById("tile"+tmpId)
-  #       className = el.className
-  #       strReplace = ' side'+tmpId+ ' '
-  #       className = className.replace(strReplace, "")
-  #       el.className = className
-
-  # sides[id].forEach (border, index) ->
-  #   newAdj[border] = tiles[border].adjacent
-  #   el = document.getElementById('tile'+border)
-  #   className = el.className
-  #   el.className = className+' side'+id+ ' '
-
-  # sides[id].forEach (border, index) ->
-  #   tmpId = id
-  #   newAdj.forEach (b, i) ->
-  #     el = document.getElementById("side"+tmpId)
-  #     console.log el.checked
-  #     if el.checked
-  #       b.forEach ( side, j) ->
-  #         if side == border
-  #           tiles[i].adjacent.splice(j, 1)
-  #     else
-  #       tiles[i].adjacent = adjacent[i]
-  #       el = document.getElementById("tile"+tmpId)
-  #       className = el.className
-  #       strReplace = ' side'+tmpId+ ' '
-  #       className = className.replace(strReplace, "")
-  #       el.className = className
-

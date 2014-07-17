@@ -1,0 +1,10 @@
+
+workflow:
+  type: sass
+  source: src/
+  target: css/
+
+workflow:
+  type: coffeescript
+  source: src/
+  target: js/
