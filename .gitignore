@@ -3,7 +3,7 @@
 logs
 *.log
 src/.sass-cache/*
-
+.sass-cache/*
 # Runtime data
 pids
 *.pid

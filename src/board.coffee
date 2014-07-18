@@ -34,18 +34,18 @@ class Side
 roles = ['Stone', 'Gems', 'Cloth', 'Wood', 'Temple', 'Market', 'Metals']
 
 sides = []
-sides[1] = [1,2]
-sides[2] = [1,3]
-sides[3] = [1,4]
-sides[4] = [2,4]
-sides[5] = [2,5]
-sides[6] = [3,4]
-sides[7] = [4,5]
-sides[8] = [3,6]
-sides[9] = [4,6]
-sides[10] = [4,7]
-sides[11] = [5,7]
-sides[12] = [6,7]
+sides[1] = { tiles: [1,2] }
+sides[2] = { tiles: [1,3] }
+sides[3] = { tiles: [1,4] }
+sides[4] = { tiles: [2,4] }
+sides[5] = { tiles: [2,5] }
+sides[6] = { tiles: [3,4] }
+sides[7] = { tiles: [4,5] }
+sides[8] = { tiles: [3,6] }
+sides[9] = { tiles: [4,6] }
+sides[10] = { tiles: [4,7] }
+sides[11] = { tiles: [5,7] }
+sides[12] = { tiles: [6,7] }
 
 
 adjacent = []
@@ -95,15 +95,15 @@ clickTile = (tile) ->
   el.className += ' current'
 
 addBarrierStyle = (sideId, tileId) ->
-  el = document.getElementById('tile'+tileId)
+  el = document.getElementById('side'+sideId)
   className = el.className
-  el.className = className+' side'+sideId+ ' '
+  el.className = className+' block'
 
 checkBarrierCount = () ->
   barriers = 0
   canContinue = true
   sides.forEach (value, i) ->
-    el = document.getElementById("side"+i)
+    el = document.getElementById("sideBtn"+i)
     if el.checked
       barriers++
   if barriers > 2
@@ -114,11 +114,11 @@ checkBarrierCount = () ->
   return canContinue
 
 setBarrier = (id) ->
-  id = id.replace("side", "", "gi")
+  id = id.replace("sideBtn", "", "gi")
 
-  sides[id].forEach (value, i) ->
+  sides[id].tiles.forEach (value, i) ->
     if !checkBarrierCount()
-      el = document.getElementById("side"+id)
+      el = document.getElementById("sideBtn"+id)
       el.checked = false
       return false
 
@@ -126,13 +126,13 @@ setBarrier = (id) ->
   sideAdj = []
   tmpSides = []
 
-  sides[id].forEach (value, i) ->
+  sides[id].tiles.forEach (value, i) ->
     tmpSides.push(value)
     sideAdj.push(tiles[value].adjacent.slice())
     addBarrierStyle(id, value)
     return true
 
-  el = document.getElementById("side"+id)
+  el = document.getElementById("sideBtn"+id)
 
   if el.checked
     sideAdj[1].forEach (tile, i) ->
@@ -148,14 +148,12 @@ setBarrier = (id) ->
         return true
     return true
   else
-    sides[id].forEach (value, i) ->
+    el = document.getElementById("side"+id)
+    el.className = el.className.replace(/block/gi, '')
+    el.className = el.className.replace(/\s*$/, '')
+
+    sides[id].tiles.forEach (value, i) ->
       tiles[value].adjacent = adjacent[value].slice()
-      el = document.getElementById("tile"+value)
-      re = new RegExp("/side"+id+"/", "gi")
-      className = el.className
-      className = className.replace("side"+id, "")
-      className = className.replace("side"+id, "")
-      el.className = className
       return true
     return true
 
